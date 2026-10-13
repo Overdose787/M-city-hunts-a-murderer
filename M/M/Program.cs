@@ -6,11 +6,15 @@ Random random_gen =  new Random();
 
 Console.WriteLine("building city");
 
-City_cont.building[] city = new City_cont.building[random_gen.Next(10 , 80)];
+int arrlimiter = random_gen.Next(10, 80);
 
-for (int i = 0; i < city.Length; i++)
+City_cont.building[] city = new City_cont.building[arrlimiter];
+
+
+
+for (int i = 0; i < arrlimiter; i++)
 {
-    city.Append(new City_cont.building($"civ-bul-{i}"));
+    city[i] = new City_cont.building($"civ-bul-{i}");
 }
 
 Console.WriteLine("building police stations");
@@ -36,4 +40,9 @@ for (int i = 0; i < crime_house_count; i++)
     {
         city.Append(new City_cont.crime_house($"crm-hs-{i}"));
     }
+}
+
+foreach (City_cont.building bld in city)
+{
+    Console.WriteLine(bld.get_into());
 }

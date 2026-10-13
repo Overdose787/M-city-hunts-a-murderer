@@ -6,13 +6,19 @@ public class City_cont
     {
         private string _adress;
 
+        public string publciadress
+        {
+            get { return _adress; }
+        }
+
         public string affiliation = "civilian";
         
         //array of residents/workers
 
         public string get_into()
         {
-            return $"addr - {_adress}\n affiliation - {affiliation}";
+            Console.WriteLine($"addr - {this.publciadress} \n affiliation - {this.affiliation}");
+            return $"addr - {this.publciadress} \n affiliation - {this.affiliation}";
         }
         
         public building(string adress)
