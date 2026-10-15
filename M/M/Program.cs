@@ -11,38 +11,37 @@ int arrlimiter = random_gen.Next(10, 80);
 City_cont.building[] city = new City_cont.building[arrlimiter];
 
 
+int police_station_count = random_gen.Next(0,new Methods().Intparse(city.Length));
+int crime_house_count = random_gen.Next(0,new Methods().Intparse(city.Length));
+
 
 for (int i = 0; i < arrlimiter; i++)
 {
-    city[i] = new City_cont.building($"civ-bul-{i}");
-}
-
-Console.WriteLine("building police stations");
-
-int police_station_count = random_gen.Next(0,new Methods().Intparse(city.Length));
-
-//City_cont.police_station[] police_Stations = new City_cont.police_station[police_station_count];
-
-for (int i = 0; i < police_station_count; i++)
-{
-    if (random_gen.Next(0, 2) == 1)
+    int rannum = random_gen.Next(0, 3); 
+    
+    if (rannum == 1 && police_station_count != 0)
     {
-        city.Append(new City_cont.police_station($"pol-stat-{i}"));
+        city[i] = new City_cont.police_station($"pol-stat-{i}");
+        police_station_count--;
     }
-}
-Console.WriteLine("building crime houses");
-
-int crime_house_count = random_gen.Next(0,new Methods().Intparse(city.Length));
-
-for (int i = 0; i < crime_house_count; i++)
-{
-    if (random_gen.Next(0, 2) == 1)
+    else if(rannum == 2 && crime_house_count != 0)
     {
-        city.Append(new City_cont.crime_house($"crm-hs-{i}"));
+        city[i] = new City_cont.crime_house($"crm-stat-{i}");
+        crime_house_count--;
+    }
+    else
+    {
+        city[i] = new City_cont.building($"civ-bul-{i}");
     }
 }
 
-foreach (City_cont.building bld in city)
+Console.WriteLine("--done--");
+
+new Methods().PRINTsuminfo(city);
+
+/*
+foreach (var bld in city)
 {
     Console.WriteLine(bld.get_into());
 }
+*/

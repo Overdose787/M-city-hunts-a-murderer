@@ -17,8 +17,12 @@ public class City_cont
 
         public string get_into()
         {
-            Console.WriteLine($"addr - {this.publciadress} \n affiliation - {this.affiliation}");
             return $"addr - {this.publciadress} \n affiliation - {this.affiliation}";
+        }
+
+        public string get_aff()
+        {
+            return this.affiliation;
         }
         
         public building(string adress)
