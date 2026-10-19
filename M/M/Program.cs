@@ -6,7 +6,7 @@ Random random_gen =  new Random();
 
 Console.WriteLine("building city");
 
-int arrlimiter = random_gen.Next(10, 80);
+int arrlimiter = random_gen.Next(10, 40);
 
 City_cont.building[] city = new City_cont.building[arrlimiter];
 
@@ -39,9 +39,43 @@ Console.WriteLine("--done--");
 
 new Methods().PRINTsuminfo(city);
 
+Console.WriteLine("bluiding people");
+
+for (int i = 0; i < city.Length; i++)
+{
+    if (city[i].affiliation[1] == 'i')
+    {
+        for (int j = 0; j < int.Parse(city[i].get_into(1)); j++)
+        {
+            city[i].addtoarr(new humans_cont.human($"human{i + j + 1}" , random_gen.Next(0,2)));
+        }
+    }
+    else if(city[i].affiliation[1] == 'o')
+    {
+        for (int j = 0; j < int.Parse(city[i].get_into(1)); j++)
+        {
+            city[i].addtoarr(new humans_cont.human($"human{i + j + 1}" , 1 , "police"));
+        }
+    }
+    else
+    {
+        for (int j = 0; j < int.Parse(city[i].get_into(1)); j++)
+        {
+            city[i].addtoarr(new humans_cont.human($"human{i + j + 1}" , 1 , "crime"));
+        }
+    }
+}
+
+
 /*
 foreach (var bld in city)
 {
     Console.WriteLine(bld.get_into());
+
+    if (int.Parse(bld.get_into(1)) == 0)
+    {
+        continue;
+    } 
+    bld.list_residents();
 }
 */

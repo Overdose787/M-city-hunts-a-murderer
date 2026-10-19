@@ -5,6 +5,7 @@ public class City_cont
     public class building
     {
         private string _adress;
+        private int _maxarr;
 
         public string publciadress
         {
@@ -13,11 +14,18 @@ public class City_cont
 
         public string affiliation = "civilian";
         
-        //array of residents/workers
+        humans_cont.human[] array =  new humans_cont.human[10];
 
-        public string get_into()
+        public string get_into(int flag = 0)
         {
-            return $"addr - {this.publciadress} \n affiliation - {this.affiliation}";
+            switch (flag)
+            {
+                case 0:
+                    return $"addr - {this.publciadress} \n affiliation - {this.affiliation}";
+                case 1:
+                    return $"{array.Length}";
+            }
+            return "";
         }
 
         public string get_aff()
@@ -29,6 +37,26 @@ public class City_cont
         {
             _adress = adress;
         }
+
+        public void addtoarr(humans_cont.human item)
+        {
+            for (int i = 0; i < array.Length; i++)
+            {
+                if (array[i] == null)
+                {
+                    array[i] = item;
+                    break;
+                }
+            }
+        }
+
+        public void list_residents()
+        {
+            foreach (var VARIABLE in this.array)
+            {
+                Console.WriteLine(VARIABLE.get_info());
+            }
+        }
     }
 
     public class police_station : building
@@ -37,7 +65,6 @@ public class City_cont
         {
             base.affiliation = "police";
         }
-        //method to add workers who are police
     }
 
     public class crime_house : building
@@ -46,6 +73,5 @@ public class City_cont
         {
             base.affiliation = "crime";
         }
-        //method to add thugs
     }
 }

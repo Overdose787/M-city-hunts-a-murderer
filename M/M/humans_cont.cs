@@ -8,7 +8,7 @@ public class humans_cont
         public string affiliation;
         private int age_group; //0 - minor , 1 - adult
 
-        string get_info()
+        public string get_info()
         {
             return $"name - {name} \n aff - {affiliation} \n age group - {age_group}";
         }
