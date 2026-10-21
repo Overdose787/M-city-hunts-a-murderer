@@ -2,6 +2,8 @@
 
 Console.WriteLine("city begins");
 
+int mcounter = 0;
+
 Random random_gen =  new Random();
 
 Console.WriteLine("building city");
@@ -47,7 +49,13 @@ for (int i = 0; i < city.Length; i++)
     {
         for (int j = 0; j < int.Parse(city[i].get_into(1)); j++)
         {
-            city[i].addtoarr(new humans_cont.human($"human{i + j + 1}" , random_gen.Next(0,2)));
+            int agegrp = random_gen.Next(0, 2);
+            city[i].addtoarr(new humans_cont.human($"human{i + j + 1}" ,agegrp ));
+            if (agegrp == 0)
+            {
+                mcounter++;
+            }
+            
         }
     }
     else if(city[i].affiliation[1] == 'o')
@@ -65,7 +73,35 @@ for (int i = 0; i < city.Length; i++)
         }
     }
 }
+humans_cont.murderer mr = new humans_cont.murderer();
 
+Console.WriteLine("---done---");
+
+bool crime_engaged = false;
+double fear_factor = 0.0;
+
+while (mcounter != 0)
+{
+    Console.Clear();
+    
+    Console.WriteLine("murderer is look for prey");
+
+    int choice = random_gen.Next(0, city.Length);
+    if (city[choice].affiliation[1] == 'i')
+    {
+        foreach (var VARIABLE in city[choice].array) 
+        {
+            if (VARIABLE.get_aggrp() == 0 && VARIABLE.alive != false)
+            {
+                Console.WriteLine($"murderer strikes at -|- {city[choice].get_into()} \n at {VARIABLE.get_info()}");
+                VARIABLE.alive = false;
+                fear_factor += 0.5;
+                break;
+            }
+        }
+            
+    }
+}
 
 /*
 foreach (var bld in city)

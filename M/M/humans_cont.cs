@@ -7,7 +7,11 @@ public class humans_cont
         private string name;
         public string affiliation;
         private int age_group; //0 - minor , 1 - adult
-
+        public bool alive = true;
+        
+        
+        public int get_aggrp() {return age_group;}
+        
         public string get_info()
         {
             return $"name - {name} \n aff - {affiliation} \n age group - {age_group}";
@@ -18,6 +22,17 @@ public class humans_cont
             this.name = name;
             age_group = aggrp;
             affiliation = aff;
+        }
+    }
+
+    public class murderer : human
+    {
+        public bool catched = false;
+
+        public char by = 'n'; //avaiable p / c
+        
+        public murderer() : base("Hans Beckert" , 1 , "murderer")
+        {
         }
     }
 }

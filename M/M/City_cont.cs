@@ -14,7 +14,7 @@ public class City_cont
 
         public string affiliation = "civilian";
         
-        humans_cont.human[] array =  new humans_cont.human[10];
+        public humans_cont.human[] array =  new humans_cont.human[10];
 
         public string get_into(int flag = 0)
         {
