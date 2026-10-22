@@ -6,6 +6,10 @@ public class City_cont
     {
         private string _adress;
         private int _maxarr;
+        
+        public bool trapped = false;
+        public char trapped_by = 'n';
+        
 
         public string publciadress
         {
@@ -16,7 +20,7 @@ public class City_cont
         
         public humans_cont.human[] array =  new humans_cont.human[10];
 
-        public string get_into(int flag = 0)
+        public string get_into(byte flag = 0)
         {
             switch (flag)
             {
@@ -56,6 +60,22 @@ public class City_cont
             {
                 Console.WriteLine(VARIABLE.get_info());
             }
+        }
+
+        public void set_trap(char aff = 'n' , byte flag = 0)
+        {
+            switch (flag)
+            {
+                case 0:
+                    trapped_by = aff;
+                    trapped = true;
+                    break;
+                case 1:
+                    trapped_by = 'n';
+                    trapped = false;
+                    break;
+            }
+
         }
     }
 

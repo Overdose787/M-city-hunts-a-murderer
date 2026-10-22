@@ -79,14 +79,53 @@ Console.WriteLine("---done---");
 
 bool crime_engaged = false;
 double fear_factor = 0.0;
+int crimerage = 0;
+Thread.Sleep(5000);
 
-while (mcounter != 0)
+while (mcounter != 0) //main even loop
 {
+    if (mr.catched == true)
+    {
+        break;
+    }
     Console.Clear();
     
     Console.WriteLine("murderer is look for prey");
 
+    
+    City_cont.building[] arrofsettrp = new City_cont.building[(int)(fear_factor + 0.5)];
+    if (fear_factor >= 0.5)
+    {
+        Console.WriteLine("police making a move");
+        for (int i = 0; i < fear_factor + 0.5; i++)
+        {
+            int ch = random_gen.Next(0, city.Length);
+            city[ch].set_trap('p');
+            if (city[ch].affiliation[1] == 'r')
+            {
+                if (!crime_engaged)
+                {
+                    Console.WriteLine("Crime has been engaged");
+                    crime_engaged = true;
+                }
+                crimerage++;
+            }
+            arrofsettrp[i] = city[ch];
+        }
+    }
+
+    for (int i = 0; i < crimerage; i++)
+    {
+        if (crime_engaged)
+        {
+            int ch = random_gen.Next(0, city.Length);
+            city[ch].set_trap('c');
+            arrofsettrp[i] = city[ch];
+        }
+    }
+    
     int choice = random_gen.Next(0, city.Length);
+    
     if (city[choice].affiliation[1] == 'i')
     {
         foreach (var VARIABLE in city[choice].array) 
@@ -99,9 +138,10 @@ while (mcounter != 0)
                 break;
             }
         }
-            
     }
 }
+
+
 
 /*
 foreach (var bld in city)
