@@ -94,7 +94,7 @@ while (mcounter != 0) //main even loop
 
     
     City_cont.building[] arrofsettrp = new City_cont.building[(int)(fear_factor + 0.5)];
-    if (fear_factor >= 0.5)
+    if (fear_factor >= 0.5)//rolls police 
     {
         Console.WriteLine("police making a move");
         for (int i = 0; i < fear_factor + 0.5; i++)
@@ -114,7 +114,7 @@ while (mcounter != 0) //main even loop
         }
     }
 
-    for (int i = 0; i < crimerage; i++)
+    for (int i = 0; i < crimerage; i++) //rolls crime
     {
         if (crime_engaged)
         {
@@ -130,7 +130,7 @@ while (mcounter != 0) //main even loop
     {
         foreach (var VARIABLE in city[choice].array) 
         {
-            if (VARIABLE.get_aggrp() == 0 && VARIABLE.alive != false)
+            if (VARIABLE.get_aggrp() == 0 && VARIABLE.alive)
             {
                 Console.WriteLine($"murderer strikes at -|- {city[choice].get_into()} \n at {VARIABLE.get_info()}");
                 VARIABLE.alive = false;
@@ -138,8 +138,19 @@ while (mcounter != 0) //main even loop
                 break;
             }
         }
+
+        if (city[choice].trapped)
+        {
+            Console.WriteLine("murdered is in building with trap");
+            if (random_gen.Next(0, 800000) == 0)//later add relative rng dependednt on amount of people
+            {
+                mr.catched = true;
+                Console.WriteLine("Murderer had been catched");
+                break;
+            }
+        }
     }
-}
+}//and add thing so police can fight crimes when trapping same buiding
 
 
 
