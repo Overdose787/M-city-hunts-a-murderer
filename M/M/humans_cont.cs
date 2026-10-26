@@ -28,8 +28,7 @@ public class humans_cont
     public class murderer : human
     {
         public bool catched = false;
-
-        public char by = 'n'; //avaiable p / c
+        
         
         public murderer() : base("Hans Beckert" , 1 , "murderer")
         {
