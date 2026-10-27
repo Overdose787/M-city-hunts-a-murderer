@@ -21,7 +21,7 @@ int arrlimiter = random_gen.Next(10, 40);
 City_cont.building[] city = new City_cont.building[arrlimiter];
 
 
-int police_station_count = random_gen.Next(0,new Methods().Intparse(city.Length));
+int police_station_count = random_gen.Next(1,new Methods().Intparse(city.Length));
 int crime_house_count = random_gen.Next(0,new Methods().Intparse(city.Length));
 
 
@@ -94,28 +94,25 @@ Thread.Sleep(5000);
 
 while (mcounter != 0) //main even loop
 {
+    Console.WriteLine($"endcounter - {mcounter}");
     if (mr.catched)
     {
         break;
     }
-    Thread.Sleep(2000);
+    Thread.Sleep(1000);
     Console.Clear();
     
-    Console.WriteLine("murderer is look for prey");
-
-    
-    City_cont.building[] arrofsettrp = new City_cont.building[(int)(fear_factor + 0.5)];
-    if (fear_factor >= 0.5)//rolls police 
+    if (fear_factor >= 0.5 && polcounter != 0)//rolls police 
     {
         Console.WriteLine("police making a move");
-        for (int i = 0; i < fear_factor + 0.5; i++)
+        for (int i = 0; i < fear_factor * 2; i++)
         {
             int ch = random_gen.Next(0, city.Length);
             if (city[ch].trapped_by == 'r')
-            { 
+            {
                 Console.WriteLine("Police has engaged crime in combat");
-                int pplonsc = random_gen.Next(0, (int)(crcounter * 0.2));//rolls crimes on scene
-                
+                int pplonsc = random_gen.Next(0, (int)(crcounter * 0.2)); //rolls crimes on scene
+
                 Console.WriteLine($"there are - {pplonsc} thugs on scene");
                 if (pplonsc - random_gen.Next(0, (int)(polcounter * 0.2)) >= 0)
                 {
@@ -127,14 +124,14 @@ while (mcounter != 0) //main even loop
                 {
                     Console.WriteLine($"police wins");
                     //crcounter = random_gen.Next(0, (int)(polcounter * 0.2)); //amount of people KIA 
-                    city[ch].set_trap('o');  
+                    city[ch].set_trap('o');
                 }
 
                 polkia += random_gen.Next(0, polcounter);
                 crkia += random_gen.Next(0, crcounter);
                 break;
             }
-            city[ch].set_trap('p');
+
             if (city[ch].affiliation[1] == 'r')
             {
                 if (!crime_engaged)
@@ -142,15 +139,15 @@ while (mcounter != 0) //main even loop
                     Console.WriteLine("Crime has been engaged");
                     crime_engaged = true;
                 }
+
                 crimerage++;
             }
-            arrofsettrp[i] = city[ch];
         }
     }
 
     for (int i = 0; i < crimerage; i++) //rolls crime
     {
-        if (crime_engaged)
+        if (crime_engaged && crcounter != 0)
         {
             int ch = random_gen.Next(0, city.Length);
             if (city[ch].trapped_by == 'o')
@@ -161,24 +158,27 @@ while (mcounter != 0) //main even loop
                 Console.WriteLine($"there are - {pplonsc} thugs on scene");
                 if (pplonsc - random_gen.Next(0, (int)(crcounter * 0.2)) >= 0)
                 {
-                    Console.WriteLine($"crime wins");
+                    Console.WriteLine($"police wins");
                     city[ch].set_trap('o');
                 }
                 else
                 {
-                    Console.WriteLine($"police wins");
+                    Console.WriteLine($"crime wins");
                     city[ch].set_trap('r');  
                 }
                 polkia += random_gen.Next(0, polcounter);
                 crkia += random_gen.Next(0, crcounter);
                 break;
             }
-            city[ch].set_trap('c');    
-            arrofsettrp[i] = city[ch];
+        }
+        else
+        {
+            break;
         }
         
     }
     
+    Console.WriteLine("murderer is look for prey");
     int choice = random_gen.Next(0, city.Length);
 
     if (city[choice].affiliation[1] == 'i')
@@ -188,7 +188,9 @@ while (mcounter != 0) //main even loop
             if (VARIABLE.get_aggrp() == 0 && VARIABLE.alive)
             {
                 Console.WriteLine($"murderer strikes at -|- {city[choice].get_into()} \n at {VARIABLE.get_info()}");
+                Console.WriteLine($" fearffactor - {fear_factor}");
                 VARIABLE.alive = false;
+                mcounter--;
                 fear_factor += 0.5;
                 break;
             }
@@ -219,7 +221,7 @@ while (mcounter != 0) //main even loop
     {
         VARIABLE.trapped_by = 'n';
     }
-}//and add thing so police can fight crimes when trapping same buiding
+}
 
 
 
